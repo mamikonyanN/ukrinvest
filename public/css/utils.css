@@ -1,0 +1,44 @@
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.relative-unset {
+    top: unset;
+    bottom: unset;
+    right: unset;
+    left: unset;
+}
+
+.bg-contacts {
+    background: rgb(232, 232, 232)
+        url("/img/icons/background/background_contacts.png");
+}
+
+.resize-none {
+    resize: none;
+}
+
+.read-more .collapsing {
+    transition: none;
+}
+
+.read-more .collapse:not(.show) ~ .read-more-ellipsis {
+    display: inline-block;
+}
+.read-more .collapse.show ~ .read-more-ellipsis {
+    display: none;
+}
+
+.read-more .collapse:not(.show) ~ .btn-read-more::before {
+    content: "Read more";
+}
+.read-more .collapse.show ~ .btn-read-more::before {
+    content: "Read less";
+}
+.read-more .collapse.show ~ .btn-read-more .icon {
+    transform: scaleX(-1);
+}
+
+.multiline {
+    white-space: pre-wrap;
+}

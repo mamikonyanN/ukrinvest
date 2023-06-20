@@ -1,0 +1,16 @@
+$font-path: "../font" !default;
+
+@font-face {
+    font-family: "Aktiv Grotesk";
+    src: url("#{$font-path}/aktiv_grotesk_regular.otf");
+}
+
+@font-face {
+    font-family: "NOH45";
+    src: url("#{$font-path}/NOH45_AM_0.ttf");
+}
+
+@font-face {
+    font-family: "Raleway";
+    src: url("#{$font-path}/Raleway-Medium.ttf");
+}

@@ -1,0 +1,98 @@
+.btn-icon {
+    width: 32px;
+    height: 32px;
+}
+
+.icon {
+    height: 1rem !important;
+    width: 1rem !important;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    background-position: bottom center !important;
+    background-repeat: no-repeat !important;
+    background-size: contain !important;
+    transition: transform 0.3s ease-in-out;
+}
+
+.icon-center {
+    background-position: center center !important;
+}
+
+.icon-lg {
+    height: 2rem !important;
+    width: 2rem !important;
+}
+
+.icon-xl {
+    height: 3rem !important;
+    width: 3rem !important;
+}
+
+.icon-more {
+    background: url("/img/icons/ui/more.png");
+}
+
+.icon-more-green {
+    background: url("/img/icons/ui/more_green.png");
+}
+
+.icon-lang-arrow {
+    background: url("/img/icons/ui/language_arrow.png");
+}
+
+.icon-arrow-left {
+    background: url("/img/icons/ui/arrow_left.png");
+}
+
+.icon-arrow-right {
+    background: url("/img/icons/ui/arrow_right.png");
+}
+
+.icon-scroll-down {
+    background: url("/img/icons/ui/scroll_down.png");
+}
+
+.icon-green-arrow-right {
+    background: url("/img/icons/ui/green_arrow_right.png");
+}
+
+.icon-share {
+    background: url("/img/icons/ui/share.png");
+}
+
+.icon-facebook-black {
+    background: url("/img/icons/brand/facebook-black.png");
+}
+
+.icon-facebook-white {
+    background: url("/img/icons/brand/facebook-white.png");
+}
+
+.icon-instagram {
+    background: url("/img/icons/brand/instagram.png");
+}
+
+.icon-youtube {
+    background: url("/img/icons/brand/youtube.png");
+}
+
+.icon-telegram {
+    background: url("/img/icons/brand/telegram.png");
+}
+
+.icon-mail {
+    background: url("/img/icons/ui/mail.png");
+}
+
+.icon-previous-page {
+    background: url("/img/icons/ui/page_arrow_left.png");
+}
+
+.icon-next-page {
+    background: url("/img/icons/ui/page_arrow_right.png");
+}
+
+.disabled .icon {
+    filter: grayscale(1);
+}
