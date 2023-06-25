@@ -1,3 +1,8 @@
+:root {
+    --read-more-text: "Read more";
+    --read-less-text: "Read less";
+}
+
 .cursor-pointer {
     cursor: pointer;
 }
@@ -30,10 +35,10 @@
 }
 
 .read-more .collapse:not(.show) ~ .btn-read-more::before {
-    content: "Read more";
+    content: var(--read-more-text);
 }
 .read-more .collapse.show ~ .btn-read-more::before {
-    content: "Read less";
+    content: var(--read-less-text);
 }
 .read-more .collapse.show ~ .btn-read-more .icon {
     transform: scaleX(-1);

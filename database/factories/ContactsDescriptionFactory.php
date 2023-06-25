@@ -17,13 +17,7 @@ class ContactsDescriptionFactory extends Factory
     public function definition(): array
     {
         return [
-            'phone_number' => fake()->phoneNumber(),
-            'email' => fake()->email(),
-            'building_number' => fake()->buildingNumber(),
-            'street_name' => fake()->streetName(),
-            'postcode' => fake()->postcode(),
-            'city' => fake()->city(),
-            'country' => fake()->country(),
+            //
         ];
     }
 }

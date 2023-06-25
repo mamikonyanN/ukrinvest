@@ -17,22 +17,27 @@
 
         @auth
         <div class="dropdown-center">
-          <button type="button" class="btn btn-primary btn-sm mx-3" role="button" data-bs-toggle="dropdown">Admin</button>
+          <button type="button" class="btn btn-primary btn-sm mx-3" role="button" data-bs-toggle="dropdown">{{__('Admin')}}</button>
           <ul class="dropdown-menu dropdown-menu-lg-end">
-            <li><a class="dropdown-item" href="{{route('register')}}">Add new admin</a></li>
-            <li><button class="dropdown-item" onclick="document.getElementById('logout-form').submit();">Logout</button></li>
+            <li><a class="dropdown-item" href="{{route('register')}}">{{__('Register')}}</a></li>
+            <li><button class="dropdown-item" onclick="document.getElementById('logout-form').submit();">{{__('Logout')}}</button></li>
           </ul>
         </div>
         @endauth
 
-
         <label class="dropdown cursor-pointer">
-          <button type="button" class="btn btn-outline-dark rounded-pill px-3" role="button" data-bs-toggle="dropdown">En</button>
+          <button type="button" class="btn btn-outline-dark rounded-pill px-3 text-capitalize" role="button" data-bs-toggle="dropdown">
+            {{$current_locale}}
+          </button>
           <span class="icon icon-lang-arrow"></span>
           <ul class="dropdown-menu dropdown-menu-lg-end">
-            <li><button class="dropdown-item">Armenian</button></li>
-            <li><button class="dropdown-item">English</button></li>
-            <li><button class="dropdown-item">Russian</button></li>
+            @foreach($available_locales as $locale_name => $available_locale)
+            @if($available_locale === $current_locale)
+            <li><a class="dropdown-item active">{{$locale_name}}</a></li>
+            @else
+            <li><a class="dropdown-item" href="{{route('language', $available_locale)}}">{{$locale_name}}</a></li>
+            @endif
+            @endforeach
           </ul>
         </label>
 

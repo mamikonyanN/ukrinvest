@@ -12,6 +12,10 @@ class ProjectsBannerSeeder extends Seeder
      */
     public function run(): void
     {
-        ProjectsBanner::factory()->create(['image_name' => 'banner_1.jpg']);
+        ProjectsBanner::factory()
+            ->hasTranslations(1, ['locale' => 'hy'])
+            ->hasTranslations(1, ['locale' => 'en'])
+            ->hasTranslations(1, ['locale' => 'ru'])
+            ->create(['image_name' => 'banner_1.jpg']);
     }
 }

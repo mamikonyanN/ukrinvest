@@ -12,6 +12,10 @@ class MissionDescriptionSeeder extends Seeder
      */
     public function run(): void
     {
-        MissionDescription::factory()->create();
+        MissionDescription::factory()
+            ->hasTranslations(1, ['locale' => 'hy'])
+            ->hasTranslations(1, ['locale' => 'en'])
+            ->hasTranslations(1, ['locale' => 'ru'])
+            ->create();
     }
 }

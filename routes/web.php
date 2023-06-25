@@ -45,3 +45,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
   Route::resource('banner', ProjectsBannerController::class)->only(['update']);
   Route::resource('about', AboutDescriptionController::class)->only(['update']);
 });
+
+Route::get('language/{locale}', function ($locale) {
+  app()->setLocale($locale);
+  session()->put('locale', $locale);
+  return redirect()->back();
+})->name('language');

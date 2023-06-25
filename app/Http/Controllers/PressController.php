@@ -13,8 +13,8 @@ class PressController extends Controller
      */
     public function index()
     {
-        $press = Press::latest('created_at')->paginate(10);
-        return view('tables.press', compact('press'));
+        $items = Press::latest('created_at')->with(app()->getLocale())->paginate(10);
+        return view('tables.press', compact('items'));
     }
 
     /**
@@ -22,11 +22,19 @@ class PressController extends Controller
      */
     public function store(StorePressRequest $request)
     {
-        $project = new Press([
-            'title' => $request->input('title'),
-            'description' => $request->input('description'),
-        ]);
-        $project->save();
+        $press = new Press();
+        $press->save();
+
+        $press->translations()->createMany(
+            array_map(
+                fn ($locale) => [
+                    'title' => $request->input('title'),
+                    'description' => $request->input('description'),
+                    'locale' => $locale,
+                ],
+                config('app.available_locales')
+            )
+        );
         return redirect()->back();
     }
 
@@ -35,7 +43,7 @@ class PressController extends Controller
      */
     public function update(UpdatePressRequest $request, Press $press)
     {
-        $press->update([
+        $press->{app()->getLocale()}?->update([
             'title' => $request->input('title'),
             'description' => $request->input('description'),
         ]);

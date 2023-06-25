@@ -1,6 +1,6 @@
 @props(['uid' => Str::random(10), 'text' => '', 'length' => 256])
 
-<div {{$attributes->class('read-more')}}>
+<div {{$attributes->class('read-more')}} style="--read-more-text: '{{__('Read more')}}'; --read-less-text: '{{__('Read less')}}'">
   @if(strlen($text) > 256)
   <span class="multiline">{{substr($text,0, $length)}}</span><span class="collapse" id="{{$uid}}-readmore">{{substr($text, $length)}}</span><span class="read-more-ellipsis">...</span>
 

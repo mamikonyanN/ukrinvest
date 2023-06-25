@@ -12,8 +12,14 @@ class CarouselElementSeeder extends Seeder
      */
     public function run(): void
     {
-        CarouselElement::factory()->create(['image_name' => 'home_1.jpg']);
-        CarouselElement::factory()->create(['image_name' => 'home_2.jpg']);
-        CarouselElement::factory()->create(['image_name' => 'home_3.jpg']);
+        $images = ['home_1.jpg', 'home_2.jpg', 'home_3.jpg'];
+
+        foreach ($images as $image) {
+            CarouselElement::factory()
+                ->hasTranslations(1, ['locale' => 'hy'])
+                ->hasTranslations(1, ['locale' => 'en'])
+                ->hasTranslations(1, ['locale' => 'ru'])
+                ->create(['image_name' => $image]);
+        }
     }
 }

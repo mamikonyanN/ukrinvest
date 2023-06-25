@@ -19,6 +19,6 @@ class AppealController extends Controller
             'subject' => $request->input('subject'),
             'message' => $request->input('message'),
         ]);
-        return Redirect::to('/');
+        return redirect()->back();
     }
 }

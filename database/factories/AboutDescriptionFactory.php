@@ -17,7 +17,7 @@ class AboutDescriptionFactory extends Factory
     public function definition(): array
     {
         return [
-            'text' => fake()->text(1024),
+            //
         ];
     }
 }

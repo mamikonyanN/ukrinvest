@@ -3,11 +3,11 @@
 @section('title', 'Ukrinvest')
 
 @section('nav-segments')
-<li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
-<li class="nav-item"><a class="nav-link" href="#mission">Mission</a></li>
-<li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-<li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-<li class="nav-item"><a class="nav-link" href="#contacts">Contacts</a></li>
+<li class="nav-item"><a class="nav-link active" href="#home">{{__('Home')}}</a></li>
+<li class="nav-item"><a class="nav-link" href="#mission">{{__('Mission')}}</a></li>
+<li class="nav-item"><a class="nav-link" href="#services">{{__('Services')}}</a></li>
+<li class="nav-item"><a class="nav-link" href="#projects">{{__('Projects')}}</a></li>
+<li class="nav-item"><a class="nav-link" href="#contacts">{{__('Contacts')}}</a></li>
 @endsection
 
 @section('content')

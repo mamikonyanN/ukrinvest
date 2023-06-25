@@ -12,13 +12,15 @@ class NewsSeeder extends Seeder
      */
     public function run(): void
     {
-        News::factory()->create(['image_name' => 'news_1.jpg']);
-        News::factory()->create(['image_name' => 'news_2.jpg']);
-        News::factory()->create(['image_name' => 'news_3.jpg']);
-        News::factory()->create(['image_name' => 'news_4.jpg']);
-        News::factory()->create(['image_name' => 'news_5.jpg']);
-        News::factory()->create(['image_name' => 'news_6.jpg']);
-        News::factory()->create(['image_name' => 'news_7.jpg']);
-        News::factory()->create(['image_name' => 'news_8.jpg']);
+
+        $images = ['news_1.jpg', 'news_2.jpg', 'news_3.jpg', 'news_4.jpg', 'news_5.jpg', 'news_6.jpg', 'news_7.jpg', 'news_8.jpg'];
+
+        foreach ($images as $image) {
+            News::factory()
+                ->hasTranslations(1, ['locale' => 'hy'])
+                ->hasTranslations(1, ['locale' => 'en'])
+                ->hasTranslations(1, ['locale' => 'ru'])
+                ->create(['image_name' => $image]);
+        }
     }
 }

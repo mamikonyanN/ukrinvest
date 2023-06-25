@@ -12,7 +12,7 @@ class ContactsDescriptionController extends Controller
      */
     public function update(UpdateContactsDescriptionRequest $request, ContactsDescription $contact)
     {
-        $contact->update([
+        $contact->{app()->getLocale()}->update([
             'phone_number' =>     $request->input('phone_number'),
             'email' =>            $request->input('email'),
             'building_number' =>  $request->input('building_number'),

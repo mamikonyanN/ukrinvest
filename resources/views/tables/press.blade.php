@@ -1,46 +1,51 @@
 @extends('layouts.app')
 
-@section('title', 'Admin: Press | Ukrinvest')
+@section('title', __('List of press') . ' | Ukrinvest')
 
 @section('content')
 <div class="container-fluid my-3">
   <section class="d-flex justify-content-between">
-    <a class="btn btn-link" href="{{route('main')}}">Go back</a>
-    <x-button-action title='Create' modal='press-create-modal' class="btn-primary" />
+    <a href="{{url()->previous()}}">{{__('Back')}}</a>
+    <x-button-action title='Create' modal='modal-create' class="btn-primary" />
   </section>
 
   <table class="table table-hover caption-top">
-    <caption>Services</caption>
+    <caption>{{__('Press')}}</caption>
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Title</th>
-        <th scope="col">Description</th>
-        <th scope="col">Create</th>
-        <th scope="col">Action</th>
+        <th scope="col">{{__('Title')}}</th>
+        <th scope="col">{{__('Description')}}</th>
+        <th scope="col" class="text-center">{{__('Date')}}</th>
+        <th scope="col" class="text-end">{{__('Actions')}}</th>
       </tr>
     </thead>
     <tbody>
-      @foreach ($press as $item)
+      @foreach ($items as $item)
       <tr>
         <th scope="row">{{$item->id}}</th>
         <td>{{$item->title}}</td>
         <td>{{$item->description}}</td>
-        <td>{{$item->created_at->format('d.m.Y')}}</td>
-        <td>
-          <x-button-action title='Edit' modal='press-edit-modal-{{$item->id}}' class="btn-success" />
-          <x-button-action title='Delete' modal='press-delete-modal-{{$item->id}}' class="btn-danger" />
+        <td class="text-center">{{$item->created_at->translatedFormat('d.m.Y')}}</td>
+        <td class="text-end">
+          <x-button-action title="Edit" modal="modal-edit-{{$item->id}}" class="btn-success" />
+          <x-button-action title="Delete" modal="modal-delete-{{$item->id}}" class="btn-danger" />
+
+          @push('modals')
           @include('forms.press.edit')
           @include('forms.press.delete')
+          @endpush
         </td>
       </tr>
       @endforeach
     </tbody>
   </table>
 
-  {{ $press->links() }}
+  {{ $items->links() }}
 
 </div>
-
-@include('forms.press.create')
 @endsection
+
+@push('modals')
+@include('forms.press.create')
+@endpush

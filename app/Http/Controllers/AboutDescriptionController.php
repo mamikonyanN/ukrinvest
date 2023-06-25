@@ -12,7 +12,7 @@ class AboutDescriptionController extends Controller
      */
     public function update(UpdateAboutDescriptionRequest $request, AboutDescription $about)
     {
-        $about->update(['text' => $request->input('text')]);
+        $about->{app()->getLocale()}->update(['text' => $request->input('text')]);
         return redirect()->back();
     }
 }

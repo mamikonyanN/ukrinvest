@@ -25,11 +25,11 @@ class UpdateContactsDescriptionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'phone_number' =>    ['required', 'string', 'max:32'],
-            'email' =>           ['required', 'email', 'max:32'],
+            'phone' =>           ['required', 'string', 'max:32'],
+            'email' =>           ['required', 'email',  'max:32'],
             'building_number' => ['required', 'string', 'max:32'],
-            'street_name' =>     ['required', 'string', 'max:32'],
-            'postcode' =>        ['required', 'string', 'max:32'],
+            'street' =>          ['required', 'string', 'max:32'],
+            'postal_code' =>     ['required', 'string', 'max:32'],
             'city' =>            ['required', 'string', 'max:32'],
             'country' =>         ['required', 'string', 'max:32'],
         ];

@@ -17,29 +17,36 @@ class PageController extends Controller
 {
     public function main()
     {
-        $carouselElements = CarouselElement::all();
-        $mission = MissionDescription::first();
-        $services = Service::all();
-        $projectDescription = ProjectDescription::first();
-        $projects = Project::all();
-        $press = Press::latest('created_at')->limit(2)->get();
-        $news = News::latest('created_at')->limit(3)->get();
-        $contacts = ContactsDescription::latest('created_at')->first();
+        $locale = app()->getLocale();
+
+        $carouselElements =   CarouselElement::with($locale)->get();
+        $mission =            MissionDescription::with($locale)->first();
+        $services =           Service::with($locale)->get();
+        $projectDescription = ProjectDescription::with($locale)->first();
+        $projects =           Project::with($locale)->get();
+        $press =              Press::with($locale)->latest('created_at')->limit(2)->get();
+        $news =               News::with($locale)->latest('created_at')->limit(3)->get();
+        $contacts =           ContactsDescription::with($locale)->latest('created_at')->first();
+
         return view('pages.main', compact(['carouselElements', 'mission', 'services', 'projectDescription', 'projects', 'press', 'news', 'contacts']));
     }
 
     public function news()
     {
-        $news = News::latest('created_at')->paginate(1)->onEachSide(1);
+        $news = News::latest('created_at')->with(app()->getLocale())->paginate(1)->onEachSide(1);
+
         return view('pages.news', compact('news'));
     }
 
     public function projects()
     {
-        $projectsBanner = ProjectsBanner::first();
-        $about = AboutDescription::first();
-        $projectDescription = ProjectDescription::first();
-        $projects = Project::all();
+        $locale = app()->getLocale();
+
+        $projectsBanner = ProjectsBanner::with($locale)->first();
+        $about = AboutDescription::with($locale)->first();
+        $projectDescription = ProjectDescription::with($locale)->first();
+        $projects = Project::with($locale)->get();
+
         return view('pages.projects', compact(['projectsBanner', 'about', 'projectDescription', 'projects']));
     }
 }

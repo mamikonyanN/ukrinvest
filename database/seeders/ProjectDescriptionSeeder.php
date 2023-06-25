@@ -12,6 +12,10 @@ class ProjectDescriptionSeeder extends Seeder
      */
     public function run(): void
     {
-        ProjectDescription::factory()->create();
+        ProjectDescription::factory()
+            ->hasTranslations(1, ['locale' => 'hy'])
+            ->hasTranslations(1, ['locale' => 'en'])
+            ->hasTranslations(1, ['locale' => 'ru'])
+            ->create();
     }
 }

@@ -15,8 +15,8 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $services = Service::paginate(10);
-        return view('tables.services', compact('services'));
+        $items = Service::with(app()->getLocale())->paginate(10);
+        return view('tables.services', compact('items'));
     }
 
     /**
@@ -32,11 +32,21 @@ class ServiceController extends Controller
 
 
         $service = new Service([
-            'title' => $request->input('title'),
             'image_name' => $imageName,
             'icon_name' => $iconName,
         ]);
         $service->save();
+
+        $service->translations()->createMany(
+            array_map(
+                fn ($locale) => [
+                    'title' => $request->input('title'),
+                    'locale' => $locale,
+                ],
+                config('app.available_locales')
+            )
+        );
+
         return redirect()->back();
     }
 
@@ -45,7 +55,7 @@ class ServiceController extends Controller
      */
     public function update(UpdateServiceRequest $request, Service $service)
     {
-        $updatedData = ['title' => $request->input('title')];
+        $updatedData = [];
 
         if ($request->file('image')) {
             $imageName = 'service_img_' . Auth::user()->id . '_'  . time() . '.' . $request->file('image')->extension();
@@ -64,6 +74,9 @@ class ServiceController extends Controller
         }
 
         $service->update($updatedData);
+
+        $service->{app()->getLocale()}->update(['title' => $request->input('title')]);
+
         return redirect()->back();
     }
 

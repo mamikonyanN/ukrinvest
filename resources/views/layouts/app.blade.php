@@ -16,6 +16,7 @@
     @yield('content')
   </div>
   @include('layouts/footer')
-  @stack('head')
+  @stack('modals')
+  @stack('scripts')
 </body>
 </html>

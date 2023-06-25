@@ -15,8 +15,8 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::latest('created_at')->paginate(10);
-        return view('tables.news', compact('news'));
+        $items = News::latest('created_at')->with(app()->getLocale())->paginate(10);
+        return view('tables.news', compact('items'));
     }
 
     /**
@@ -28,11 +28,20 @@ class NewsController extends Controller
         $request->file('image')->storeAs('public/images', $imageName);
 
         $news = new News([
-            'title' => $request->input('title'),
-            'description' => $request->input('description'),
             'image_name' => $imageName,
         ]);
         $news->save();
+
+        $news->translations()->createMany(
+            array_map(
+                fn ($locale) => [
+                    'title' => $request->input('title'),
+                    'description' => $request->input('description'),
+                    'locale' => $locale,
+                ],
+                config('app.available_locales')
+            )
+        );
         return redirect()->back();
     }
 
@@ -41,20 +50,18 @@ class NewsController extends Controller
      */
     public function update(UpdateNewsRequest $request, News $news)
     {
-        $updatedData = [
-            'title' => $request->input('title'),
-            'description' => $request->input('description'),
-        ];
-
         if ($request->file('image')) {
             $imageName = 'news_' . Auth::user()->id . '_'  . time() . '.' . $request->file('image')->extension();
             $request->file('image')->storeAs('public/images', $imageName);
             Storage::delete('public/images/' . $news->image_name);
 
-            $updatedData['image_name'] = $imageName;
+            $news->update(['image_name' => $imageName]);
         }
 
-        $news->update($updatedData);
+        $news->{app()->getLocale()}->update([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+        ]);
         return redirect()->back();
     }
 

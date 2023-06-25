@@ -12,10 +12,14 @@ class ProjectSeeder extends Seeder
      */
     public function run(): void
     {
-        Project::factory()->create(['image_name' => 'project_1.jpg']);
-        Project::factory()->create(['image_name' => 'project_2.jpg']);
-        Project::factory()->create(['image_name' => 'project_3.jpg']);
-        Project::factory()->create(['image_name' => 'project_4.jpg']);
-        Project::factory()->create(['image_name' => 'project_5.jpg']);
+        $images = ['project_1.jpg', 'project_2.jpg', 'project_3.jpg', 'project_4.jpg', 'project_5.jpg'];
+
+        foreach ($images as $image) {
+            Project::factory()
+                ->hasTranslations(1, ['locale' => 'hy'])
+                ->hasTranslations(1, ['locale' => 'en'])
+                ->hasTranslations(1, ['locale' => 'ru'])
+                ->create(['image_name' => $image]);
+        }
     }
 }

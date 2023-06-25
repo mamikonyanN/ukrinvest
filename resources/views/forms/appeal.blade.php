@@ -4,25 +4,25 @@
   @csrf
   <div class="row mb-3">
     <div class="col-12 col-lg-4 g-2">
-      <input type="text" class="form-control shadow-sm @error('name', 'appeal') is-invalid @enderror" value="{{ $errors->appeal->isNotEmpty() ? old('name') : '' }}" name="name" placeholder="Name*" required maxlength="32">
+      <input type="text" class="form-control shadow-sm @error('name', 'appeal') is-invalid @enderror" value="{{ $errors->appeal->isNotEmpty() ? old('name') : '' }}" name="name" placeholder="{{__('Name')}}*" required maxlength="32">
       @error('name', 'appeal')
       <div class="invalid-feedback">{{ $message }}</div>
       @enderror
     </div>
     <div class="col-12 col-lg-4 g-2">
-      <input type="email" class="form-control shadow-sm @error('email', 'appeal') is-invalid @enderror" value="{{ $errors->appeal->isNotEmpty() ? old('email') : '' }}" name="email" placeholder="Email*" required maxlength="32">
+      <input type="email" class="form-control shadow-sm @error('email', 'appeal') is-invalid @enderror" value="{{ $errors->appeal->isNotEmpty() ? old('email') : '' }}" name="email" placeholder="{{__('Email')}}*" required maxlength="32">
       @error('email', 'appeal')
       <div class="invalid-feedback">{{ $message }}</div>
       @enderror
     </div>
     <div class="col-12 col-lg-4 g-2">
-      <input type="text" class="form-control shadow-sm @error('subject', 'appeal') is-invalid @enderror" value="{{ $errors->appeal->isNotEmpty() ? old('subject') : '' }}" name="subject" placeholder="Subject*" required maxlength="32">
+      <input type="text" class="form-control shadow-sm @error('subject', 'appeal') is-invalid @enderror" value="{{ $errors->appeal->isNotEmpty() ? old('subject') : '' }}" name="subject" placeholder="{{__('Subject')}}*" required maxlength="32">
       @error('subject', 'appeal')
       <div class="invalid-feedback">{{ $message }}</div>
       @enderror
     </div>
     <div class="col-12 g-2">
-      <textarea class="form-control resize-none shadow-sm @error('message', 'appeal') is-invalid @enderror" value="{{ $errors->appeal->isNotEmpty() ? old('message') : '' }}" name="message" cols="30" rows="10" required></textarea>
+      <textarea class="form-control resize-none shadow-sm @error('message', 'appeal') is-invalid @enderror" name="message" cols="30" rows="10" required>{{ $errors->appeal->isNotEmpty() ? old('message') : '' }}</textarea>
       @error('message', 'appeal')
       <div class="invalid-feedback">{{ $message }}</div>
       @enderror
@@ -34,7 +34,7 @@
   </div>
 
   <div class="text-center">
-    <button type="submit" class="btn btn-primary text-light rounded-pill px-5 py-3">Send</button>
+    <button type="submit" class="btn btn-primary text-light rounded-pill px-5 py-3">{{__('Send')}}</button>
   </div>
 </form>
 

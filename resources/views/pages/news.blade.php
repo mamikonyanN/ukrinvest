@@ -1,6 +1,6 @@
 @extends('layouts/app')
 
-@section('title', 'News | UktrInvest')
+@section('title', __('News') . ' | UktrInvest')
 
 @section('content')
 <section class="container py-5 d-flex flex-column">
@@ -10,7 +10,7 @@
 
       @foreach($news as $item)
       <div class="flex-fill">
-        <div class="fw-bold text-uppercase">{{ $item->created_at->format('d M, Y') }}</div>
+        <div class="fw-bold text-uppercase">{{ $item->created_at->translatedFormat('d M, Y') }}</div>
         <h3 class="font-monospace">{{ $item->title }}</h3>
         <img class="w-100" src="{{asset('/storage/images/' . $item->image_name)}}" alt="{{$item->title}}">
         <p>{{ $item->description }}</p>
@@ -25,7 +25,7 @@
       @endforeach
 
 
-      {!! $news->links('layouts.pagination') !!}
+      {{ $news->links('layouts.pagination') }}
 
     </div>
   </div>

@@ -1,48 +1,53 @@
 @extends('layouts.app')
 
-@section('title', 'Admin: Projects | Ukrinvest')
+@section('title', __('List of projects') . ' | Ukrinvest')
 
 @section('content')
 <div class="container-fluid my-3">
   <section class="d-flex justify-content-between">
-    <a class="btn btn-link" href="{{route('main')}}">Go back</a>
-    <x-button-action title='Create' modal='project-create-modal' class="btn-primary" />
+    <a href="{{url()->previous()}}">{{__('Back')}}</a>
+    <x-button-action title='Create' modal='modal-create' class="btn-primary" />
   </section>
 
   <table class="table table-hover caption-top">
-    <caption>Projects</caption>
+    <caption>{{__('Projects')}}</caption>
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Title</th>
-        <th scope="col">Description</th>
-        <th scope="col">Image</th>
-        <th scope="col">Action</th>
+        <th scope="col">{{__('Title')}}</th>
+        <th scope="col">{{__('Description')}}</th>
+        <th scope="col">{{__('Image')}}</th>
+        <th scope="col" class="text-end">{{__('Actions')}}</th>
       </tr>
     </thead>
     <tbody>
-      @foreach ($projects as $project)
+      @foreach ($items as $item)
       <tr>
-        <th scope="row">{{$project->id}}</th>
-        <td>{{$project->title}}</td>
-        <td>{{$project->description}}</td>
+        <th scope="row">{{$item->id}}</th>
+        <td>{{$item->title}}</td>
+        <td>{{$item->description}}</td>
         <td style="max-width: 150px">
-          <img src="{{asset('/storage/images/' . $project->image_name)}}" class="img-fluid" alt="{{$project->title}}">
+          <img src="{{asset('/storage/images/' . $item->image_name)}}" class="img-fluid" alt="{{$item->title}}">
         </td>
-        <td>
-          <x-button-action title='Edit' modal='project-edit-modal-{{$project->id}}' class="btn-success" />
-          <x-button-action title='Delete' modal='project-delete-modal-{{$project->id}}' class="btn-danger" />
+        <td class="text-end">
+          <x-button-action title="Edit" modal="modal-edit-{{$item->id}}" class="btn-success" />
+          <x-button-action title="Delete" modal="modal-delete-{{$item->id}}" class="btn-danger" />
+
+          @push('modals')
           @include('forms.project.edit')
           @include('forms.project.delete')
+          @endpush
         </td>
       </tr>
       @endforeach
     </tbody>
   </table>
 
-  {{ $projects->links() }}
+  {{ $items->links() }}
 
 </div>
-
-@include('forms.project.create')
 @endsection
+
+@push('modals')
+@include('forms.project.create')
+@endpush

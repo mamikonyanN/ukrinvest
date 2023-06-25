@@ -1,17 +1,14 @@
 <section id="gallery" class="bg-secondary py-5">
   <div class="container">
     <div class="text-center">
-      <h1>
-        Gallery
-
-        @auth
-        <div class="text-center">
-          <x-button-action title="Edit descriptioin" modal="project-description-edit-modal" />
-        </div>
-        @endauth
-
-      </h1>
+      <h1>{{__('Gallery')}}</h1>
       <p>{{$projectDescription->title}}</p>
+
+      @auth
+      <div class="mb-3">
+        <x-button-action title="Edit description" modal="modal-project-description" />
+      </div>
+      @endauth
     </div>
 
     <x-project-carousel class="d-block d-md-none" :chunks="$projects->chunk(1)" suffix="sm" col-class="col-12" />
@@ -27,4 +24,6 @@
   </div>
 </section>
 
+@push('modals')
 @include('forms.project-description')
+@endpush

@@ -12,7 +12,7 @@ class ProjectDescriptionController extends Controller
      */
     public function update(UpdateProjectDescriptionRequest $request, ProjectDescription $projectDescription)
     {
-        $projectDescription->update(['title' => $request->input('title')]);
+        $projectDescription->{app()->getLocale()}?->update(['title' => $request->input('title')]);
         return redirect()->back();
     }
 }

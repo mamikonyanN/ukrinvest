@@ -4,7 +4,7 @@
   <div class="card bg-secondary border-0 display-flex flex-row position-relative h-100">
 
     <div class="ratio ratio-1x1 rounded min-h-100 w-auto bg-primary d-flex justify-content-center align-items-center text-center text-uppercase h3 p-2 m-0">
-      {{ $item->created_at->format('d M, Y') }}
+      {{ $item->created_at->translatedFormat('d M, Y') }}
     </div>
 
     <div class="card-body text-start me-2">

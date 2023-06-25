@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
 
-    protected $fillable = ['title', 'description', 'image_name'];
+    protected $fillable = ['image_name'];
+    protected $translationClass = ProjectTranslation::class;
 }

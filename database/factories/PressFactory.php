@@ -17,8 +17,6 @@ class PressFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->text(32),
-            'description' => fake()->text(128),
             'created_at' => fake()->dateTimeBetween('-1 month', 'now'),
         ];
     }

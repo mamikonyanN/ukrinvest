@@ -15,8 +15,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::paginate(10);
-        return view('tables.projects', compact('projects'));
+        $items = Project::with(app()->getLocale())->paginate(10);
+        return view('tables.projects', compact('items'));
     }
 
     /**
@@ -28,11 +28,20 @@ class ProjectController extends Controller
         $request->file('image')->storeAs('public/images', $imageName);
 
         $project = new Project([
-            'title' => $request->input('title'),
-            'description' => $request->input('description'),
             'image_name' => $imageName,
         ]);
         $project->save();
+
+        $project->translations()->createMany(
+            array_map(
+                fn ($locale) => [
+                    'title' => $request->input('title'),
+                    'description' => $request->input('description'),
+                    'locale' => $locale,
+                ],
+                config('app.available_locales')
+            )
+        );
         return redirect()->back();
     }
 
@@ -41,20 +50,19 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        $updatedData = [
-            'title' => $request->input('title'),
-            'description' => $request->input('description'),
-        ];
-
         if ($request->file('image')) {
             $imageName = 'project_' . Auth::user()->id . '_'  . time() . '.' . $request->file('image')->extension();
             $request->file('image')->storeAs('public/images', $imageName);
             Storage::delete('public/images/' . $project->image_name);
 
-            $updatedData['image_name'] = $imageName;
+            $project->update(['image_name' => $imageName]);
         }
 
-        $project->update($updatedData);
+        $project->{app()->getLocale()}->update([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+        ]);
+
         return redirect()->back();
     }
 

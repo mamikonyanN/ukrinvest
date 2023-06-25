@@ -2,17 +2,19 @@
 
   <div class="container">
     <div class="text-center">
-      <h1>
-        Projects
-        @auth
-        <div class="text-center">
-          <x-button-action title="Edit descriptioin" modal="project-description-edit-modal" />
-        </div>
-        @endauth
-      </h1>
+      <h1>{{__('Projects')}}</h1>
       <p>{{$projectDescription->title}}</p>
-      @include('forms.project-description')
     </div>
+
+    @auth
+    <div class="text-center mb-3">
+      <x-button-action title="Edit description" modal="modal-project-description" />
+    </div>
+
+    @push('modals')
+    @include('forms.project-description')
+    @endpush
+    @endauth
 
     <x-project-carousel class="d-block d-md-none" :chunks="$projects->chunk(1)" suffix="sm" col-class="col-12" />
     <x-project-carousel class="d-none d-md-block d-lg-none" :chunks="$projects->chunk(2)" suffix="md" col-class="col-6" />
@@ -23,13 +25,12 @@
       <x-button-action :href="route('project.index')" />
     </div>
     @endauth
-
   </div>
 
   <div class="container">
 
     <div class="text-center py-3">
-      <h1>News & Press</h1>
+      <h1>{{__('News & Press')}}</h1>
     </div>
 
     <div class="row d-flex justify-content-center mb-4">

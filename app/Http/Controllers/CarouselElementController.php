@@ -15,8 +15,8 @@ class CarouselElementController extends Controller
      */
     public function index()
     {
-        $carouselElements = CarouselElement::paginate(10);
-        return view('tables.carouselElements', compact('carouselElements'));
+        $items = CarouselElement::with(app()->getLocale())->paginate(10);
+        return view('tables.carouselElements', compact('items'));
     }
 
     /**
@@ -28,10 +28,20 @@ class CarouselElementController extends Controller
         $request->file('image')->storeAs('public/images', $imageName);
 
         $carouselElement = new CarouselElement([
-            'title' => $request->input('title'),
             'image_name' => $imageName,
         ]);
         $carouselElement->save();
+
+        $carouselElement->translations()->createMany(
+            array_map(
+                fn ($locale) => [
+                    'title' => $request->input('title'),
+                    'locale' => $locale,
+                ],
+                config('app.available_locales')
+            )
+        );
+
         return redirect()->back();
     }
 
@@ -40,17 +50,19 @@ class CarouselElementController extends Controller
      */
     public function update(UpdateCarouselElementRequest $request, CarouselElement $carouselElement)
     {
-        $updatedData = ['title' => $request->input('title')];
-
         if ($request->file('image')) {
             $imageName = 'carousel_element_' . Auth::user()->id . '_'  . time() . '.' . $request->file('image')->extension();
             $request->file('image')->storeAs('public/images', $imageName);
             Storage::delete('public/images/' . $carouselElement->image_name);
 
-            $updatedData['image_name'] = $imageName;
+            $carouselElement->update(['image_name' => $imageName]);
         }
 
-        $carouselElement->update($updatedData);
+        $carouselElement->{app()->getLocale()}->update([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+        ]);
+
         return redirect()->back();
     }
 

@@ -12,6 +12,10 @@ class ContactsDescriptionSeeder extends Seeder
      */
     public function run(): void
     {
-        ContactsDescription::factory()->create();
+        ContactsDescription::factory()
+            ->hasTranslations(1, ['locale' => 'hy'])
+            ->hasTranslations(1, ['locale' => 'en'])
+            ->hasTranslations(1, ['locale' => 'ru'])
+            ->create();
     }
 }

@@ -12,6 +12,10 @@ class AboutDescriptionSeeder extends Seeder
      */
     public function run(): void
     {
-        AboutDescription::factory()->create();
+        AboutDescription::factory()
+            ->hasTranslations(1, ['locale' => 'hy'])
+            ->hasTranslations(1, ['locale' => 'en'])
+            ->hasTranslations(1, ['locale' => 'ru'])
+            ->create();
     }
 }

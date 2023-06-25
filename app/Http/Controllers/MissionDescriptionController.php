@@ -13,7 +13,7 @@ class MissionDescriptionController extends Controller
      */
     public function update(UpdateMissionDescriptionRequest $request, MissionDescription $mission)
     {
-        $mission->update(['text' => $request->input('text')]);
+        $mission->{app()->getLocale()}?->update(['text' => $request->input('text')]);
         return redirect()->back();
     }
 }
